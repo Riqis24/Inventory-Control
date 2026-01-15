@@ -14,7 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('measurement_id')->constrained()->onDelete('cascade');
-            $table->decimal('conversion', 10, 2)->default(1);
+            $table->foreignId('placement_id')->nullable();
+            $table->decimal('conversion', 18, 6)->default(1);
+            $table->decimal('last_buy_price', 18, 6)->default(1);
             $table->timestamps();
         });
     }

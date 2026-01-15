@@ -17,7 +17,7 @@ class FinancialRecordController extends Controller
         $date2 = $request->input('date2') ?: Carbon::now();
         $type  = $request->input('type');
 
-        $query = FinancialRecords::with('source.customer')
+        $query = FinancialRecords::with('source')
             ->whereBetween('date', [$date1, $date2])
             ->orderByDesc('id');
 

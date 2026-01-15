@@ -72,22 +72,21 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-
-    }
+    public function update(Request $request, string $id) {}
 
     public function updateInline(request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
+            'password' => 'required|string|min:8',
             'role' => 'required|string',
         ]);
 
         $user = User::findOrFail($id);
         $user->user_mstr_name = $request->name;
         $user->user_mstr_email = $request->email;
+        $user->user_mstr_password = Hash::make($request->password);
         $user->user_mstr_role = $request->role;
         $user->save();
 

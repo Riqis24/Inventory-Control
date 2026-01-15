@@ -35,7 +35,8 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Metode Pembayaran</label>
-                                <select name="method_payment" class="form-select select2">
+                                <select name="method_payment" class="form-select select2" required>
+                                    <option value=""></option>
                                     <option value="cash">Cash</option>
                                     <option value="credit">Credit</option>
                                     <!-- Tambahkan opsi lain jika perlu -->

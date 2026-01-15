@@ -6,7 +6,7 @@
             </a>
         </header>
         <div class="page-heading">
-            <h3>Product Master</h3>
+            <h3>Price Master</h3>
         </div>
         <div class="page-content">
             <div class="card">
@@ -27,9 +27,6 @@
                                     <th style="width:20%; text-align: center">Measurement</th>
                                     <th style="width:20%; text-align: center">Price</th>
                                     <th style="width:5%; text-align: center">Action</th>
-                                    {{-- <th>Product</th> --}}
-                                    {{-- <th>Status</th> --}}
-                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,9 +37,12 @@
                                         <td>{{ $price->productMeasurement->measurement->name }}</td>
                                         <td>{{ rupiah($price->price) }}</td>
                                         <td style="text-align: center">
-                                            <button type="button" class="btn btn-sm btn-info rounded"
+                                            <button class="btn btn-sm btn-warning btn-edit-price"
+                                                data-price-id="{{ $price->id }}"><i class="bi bi-pen"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger rounded"
                                                 onclick="window.location.href=''">
-                                                <i class="bi bi-folder"></i>
+                                                <i class="bi bi-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -50,9 +50,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="card-footer">
-                    ini footer
                 </div>
             </div>
         </div>
@@ -97,8 +94,68 @@
         </div>
     </form>
 
+    {{-- modal edit --}}
+    <div class="modal fade" id="priceModal" tabindex="-1">
+        <div class="modal-dialog">
+            <form id="priceForm">
+                @csrf
+                <input type="hidden" id="price_id">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Harga</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>Harga</label>
+                            <input type="number" class="form-control" id="price" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Simpan</button>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Batal</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
     @push('scripts')
         <script src="{{ 'assets/js/PriceMstr/getData.js' }}"></script>
         <script src="{{ 'assets/js/alert.js' }}"></script>
+        <script>
+            $(document).on('click', '.btn-edit-price', function() {
+                let priceId = $(this).data('price-id');
+
+                $.get('/price/' + priceId, function(res) {
+                    $('#price_id').val(res.id);
+                    $('#price').val(res.price);
+
+                    $('#priceModal').modal('show');
+                });
+            });
+
+            $('#priceForm').submit(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: '/price/update',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        price_id: $('#price_id').val(),
+                        price: $('#price').val(),
+
+                    },
+                    success: function() {
+                        $('#priceModal').modal('hide');
+                        location.reload(); // atau redraw DataTable
+                    }
+                });
+            });
+        </script>
     @endpush
 </x-app-layout>

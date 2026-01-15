@@ -4,28 +4,24 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Product;
+use App\Models\ProductCat;
 use App\Models\Measurement;
-use App\Models\ProductMeasurements;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\ProductMeasurements;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $products = Product::query()->with('measurement')->orderBy('id', 'desc')->get();
-        $satuans = Measurement::query()->orderBy('id', 'desc')->get();
-        return view('master.ProductMstrList', compact('products', 'satuans'));
+        $products = Product::with(['measurement', 'cat'])->orderBy('id', 'desc')->get();
+        // dd($products);
+        $satuans = Measurement::orderBy('id', 'desc')->get();
+        $cats = ProductCat::orderBy('product_cat_id', 'desc')->get();
+        return view('master.ProductMstrList', compact('products', 'satuans', 'cats'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-
 
     public function updateMeasurement(request $request)
     {
@@ -45,18 +41,16 @@ class ProductController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Product berhasil ditambahkan!');
-
         } catch (ValidationException $e) {
-            // Laravel akan otomatis redirect back, tapi kalau kamu mau manual:
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->withInput();
         } catch (Exception $e) {
             Log::error('Gagal menambahkan Satuan', ['error' => $e->getMessage()]);
-
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan satuan.');
         }
     }
+
 
 
     public function EditPrdMeasurement($idProduct)
@@ -77,41 +71,31 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'products' => 'required|array',
-                'products.*' => ['required', 'unique:products,name'],
-                'satuans' => 'required|array',
-                'satuans.*' => ['required'],
-                'codes' => 'required|array',
-                'codes.*' => ['required', 'unique:products,code'],
-                'descriptions' => 'required|array',
-                'descriptions.*' => ['required'],
+            Product::create([
+                'code' => $request->code,
+                'name' => $request->name,
+                'type' => $request->type,
+                'category' => $request->cat,
+                'margin' => $request->margin,
+                'measurement_id' => $request->satuan,
+                'description' => $request->description,
+                'is_stockable' => isset($request->is_stockable) ? 1 : 0,
+                'is_visible' => isset($request->is_visible) ? 1 : 0,
             ]);
 
-            foreach ($request->codes as $index => $productCode) {
-                Product::create([
-                    'code' => $productCode,
-                    'name' => $request->products[$index],
-                    'measurement_id' => $request->satuans[$index],
-                    'description' => $request->descriptions[$index],
-                    'is_stockable' => isset($request->is_stockables[$index]) ? 1 : 0,
-                ]);
+            ProductMeasurements::create([
+                'product_id' => Product::latest('id')->first()->id,
+                'measurement_id' => $request->satuan,
+            ]);
 
-                ProductMeasurements::create([
-                    'product_id' => Product::latest('id')->first()->id,
-                    'measurement_id' => $request->satuans[$index],
-                ]);
-            }
 
             return redirect()->back()->with('success', 'Product berhasil ditambahkan!');
         } catch (ValidationException $e) {
-            // Laravel akan otomatis redirect back, tapi kalau kamu mau manual:
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->withInput();
         } catch (Exception $e) {
             Log::error('Gagal menambahkan Product', ['error' => $e->getMessage()]);
-
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan Product.');
         }
     }
@@ -143,8 +127,33 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        // 1. Cek apakah ada transaksi di tabel terkait
+        // Sesuaikan nama tabel 'Stock' atau 'SalesDetail' dengan milikmu
+        $hasTransaction = DB::table('stocks')->where('product_id', $id)->exists() ||
+            DB::table('sales_det')->where('sales_det_productid', $id)->exists();
+
+        if ($hasTransaction) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Produk tidak bisa dihapus karena sudah memiliki riwayat transaksi (stok/penjualan). Silakan non-aktifkan (is_visible) saja.'
+            ], 422);
+        }
+
+        // 2. Jika produk adalah Bundle, hapus dulu isinya (child-nya)
+        if ($product->type === 'bundle') {
+            $product->bundleItems()->delete();
+        }
+
+        // 3. Hapus Produk
+        $product->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Produk berhasil dihapus.'
+        ]);
     }
 }

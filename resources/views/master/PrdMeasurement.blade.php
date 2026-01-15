@@ -72,7 +72,7 @@
                 </div>
                 <div class="card-footer">
                     <button class="btn btn-dark btn-sm" type="button"
-                        onclick="window.location.href='{{ route('CustTransaction.index') }}'">Back</button>
+                        onclick="window.location.href='{{ route('ProductMstr.index') }}'">Back</button>
                 </div>
             </div>
         </div>
@@ -91,8 +91,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <input type="hidden" class="form-control form-control-sm"
-                                value="{{ $product->product->id }}" name="product" required>
+                            <input type="hidden" class="form-control form-control-sm" value="{{ $default->id }}"
+                                name="product" required>
                             <div class="col-md-6">
                                 <label for="address" class="form-label">Measurement</label>
                                 <select name="satuan" class="form-control form-control-sm select2" id="fid_Satuans">

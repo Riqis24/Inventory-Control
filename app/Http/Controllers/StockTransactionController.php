@@ -16,7 +16,7 @@ class StockTransactionController extends Controller
      */
     public function index()
     {
-        $trStocks = StockTransactions::query()->with('product')->orderBy('id', 'desc')->get();
+        $trStocks = StockTransactions::query()->with(['product', 'location', 'batch'])->orderBy('id', 'desc')->get();
         $products = Product::query()->orderBy('id', 'desc')->get();
         return view('report.StockTransaction', compact('trStocks', 'products'));
     }

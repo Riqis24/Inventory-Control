@@ -48,7 +48,6 @@ class PriceController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Harga berhasil ditambahkan!');
-
         } catch (ValidationException $e) {
             // Laravel akan otomatis redirect back, tapi kalau kamu mau manual:
             return redirect()->back()
@@ -59,7 +58,6 @@ class PriceController extends Controller
 
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan harga.');
         }
-
     }
 
     /**
@@ -73,17 +71,26 @@ class PriceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Price $price)
+    public function edit($id)
     {
-        //
+        $price = Price::findOrFail($id);
+
+        return response()->json([
+            'id' => $price->id,
+            'price' => $price->price,
+
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePriceRequest $request, Price $price)
+    public function update(Request $request)
     {
-        //
+        $price = Price::findOrFail($request->price_id);
+
+        $price->update([
+            'price' => $request->price,
+        ]);
+
+        return response()->json(['message' => 'Harga berhasil diperbarui']);
     }
 
     /**

@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('stock_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained();
+            $table->unsignedBigInteger('loc_id')->nullable();
+            $table->unsignedBigInteger('batch_id')->nullable();
             $table->enum('type', ['in', 'out', 'adjustment']);
             $table->decimal('quantity', 18, 2);
             $table->text('note')->nullable();

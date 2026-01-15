@@ -15,9 +15,11 @@ return new class extends Migration {
             $table->string('invoice_number')->unique()->nullable();
             $table->foreignId('customer_id')->nullable()->constrained('customers')->nullOnDelete();
             $table->date('date');
-            $table->enum('status', ['cash', 'credit']);
+            $table->enum('method_payment', ['cash', 'credit']);
             $table->decimal('total', 15, 2);
             $table->decimal('paid', 15, 2)->default(0);
+            $table->decimal('debt', 15, 2)->default(0);
+            $table->unsignedBigInteger('status')->nullable();
             $table->timestamps();
         });
     }

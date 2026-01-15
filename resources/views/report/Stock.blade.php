@@ -25,7 +25,10 @@
                                     <th style="width:5%; text-align: center">No</th>
                                     <th style="text-align: center">Product</th>
                                     <th style="width:15%; text-align: center">Qty</th>
-                                    {{-- <th style="width:5%; text-align: center">Aksi</th> --}}
+                                    <th style="width:15%; text-align: center">Location</th>
+                                    <th style="width:15%; text-align: center">Batch Number</th>
+                                    <th style="width:15%; text-align: center">Exp Date</th>
+                                    <th style="width:5%; text-align: center">Aksi</th>
                                     {{-- <th>Cust</th> --}}
                                     {{-- <th>Status</th> --}}
                                     {{-- <th>Aksi</th> --}}
@@ -36,13 +39,16 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $stock->product->name }}</td>
-                                        <td>{{ $stock->quantity }}</td>
-                                        {{-- <td style="text-align: center">
+                                        <td style="text-align: right">{{ numfmt($stock->quantity) }}</td>
+                                        <td>{{ $stock->loc->loc_mstr_name }}</td>
+                                        <td>{{ $stock->batch->batch_mstr_no }}</td>
+                                        <td>{{ $stock->batch->batch_mstr_expireddate }}</td>
+                                        <td style="text-align: center">
                                             <button type="button" class="btn btn-sm btn-info rounded"
-                                                onclick="window.location.href='{{ route('getDetailTransaction', $transaction->id) }}'">
+                                                onclick="window.location.href='{{ route('stockHistory', $stock->id) }}'">
                                                 <i class="bi bi-folder"></i>
                                             </button>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

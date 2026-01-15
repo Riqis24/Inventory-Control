@@ -10,9 +10,43 @@
         </div>
         <div class="card shadow-sm border-0 rounded-4 mb-4">
             <div class="card-body px-5 py-4">
-                <div class="mb-4 text-center">
-                    <small class="text-muted d-block">No. Invoice</small>
-                    <h5 class="fw-bold text-dark mb-0">{{ $transaction->invoice_number }}</h5>
+                @php
+                    if ($transaction->status == '0') {
+                        $status = 'open';
+                        $color = 'warning';
+                    } elseif ($transaction->status == '1') {
+                        $status = 'completed';
+                        $color = 'success';
+                    } else {
+                        $status = 'unknown';
+                        $color = 'danger';
+                    }
+                @endphp
+
+                <div class="text-center">
+                    <small class="text-muted">No. Invoice</small>
+                    <h5 class="fw-bold text-dark mb-0">{{ $transaction->invoice_number }}
+
+                    </h5>
+                </div>
+                <div class="text-center">
+                    <span class="badge rounded-pill bg-{{ $color }} px-3 py-2">
+                        {{ ucfirst($status) }}
+                    </span>
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn btn-outline-success btn-sm dropdown-toggle"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-printer"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <a href="{{ route('StoreProfile.printInvoice', $id) }}">Invoice</a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="{{ route('StoreProfile.printNota', $id) }}">Nota</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-3 mb-3 mb-md-0">
@@ -33,13 +67,13 @@
                             {{ rupiah($transaction->paid) }}
                         </h5>
                     </div>
-                    <div class="col-md-3">
-                        <small class="text-muted">Status Pembayaran</small>
-                        <span
-                            class="badge rounded-pill bg-{{ $transaction->status === 'cash' ? 'success' : 'danger' }} mt-2 px-3 py-2">
-                            {{ ucfirst($transaction->status) }}
-                        </span>
+                    <div class="col-md-3 mb-3 mb-md-0">
+                        <small class="text-muted">Metode Pembayaran</small>
+                        <h5 class="fw-semibold text-secondary mt-1">
+                            {{ $transaction->method_payment }}
+                        </h5>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -107,15 +107,9 @@
                                         <th style="width:5%; text-align: center">No</th>
                                         <th style="width:12%; text-align: center">Date</th>
                                         <th style="width:10%; text-align: center">Type</th>
-                                        {{-- <th style="text-align: center">Product</th> --}}
                                         <th style="width:10%; text-align: center">Description</th>
                                         <th style="width:15%; text-align: center">Amount</th>
                                         <th style="text-align: center">Source</th>
-                                        <th style="width:15%;text-align: center">Customer</th>
-                                        {{-- <th style="width:5%; text-align: center">Aksi</th> --}}
-                                        {{-- <th>Cust</th> --}}
-                                        {{-- <th>Status</th> --}}
-                                        {{-- <th>Aksi</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,26 +118,17 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $record->date }}</td>
                                             <td>{{ $record->type }}</td>
-                                            <td>{{ $record->description }}</td>
+                                            <td>{{ $record->data_source }}</td>
                                             <td>{{ rupiah($record->amount) }}</td>
                                             <td>
-                                                @if ($record->source_type === \App\Models\CustTransactions::class && is_object($record->source))
-                                                    Penjualan ({{ $record->source->invoice_number ?? '-' }})
+                                                @if ($record->source_type === \App\Models\SalesMstr::class && is_object($record->source))
+                                                    Penjualan ({{ $record->source->sales_mstr_nbr ?? '-' }})
                                                 @else
                                                     {{ class_basename($record->source_type) }}
                                                     #{{ $record->source_id }}
                                                 @endif
                                             </td>
-                                            <td>
-                                                @if (
-                                                    ($record->source_type === \App\Models\CustTransactions::class ||
-                                                        $record->source_type === \App\Models\ReceivablePayments::class) &&
-                                                        is_object($record->source))
-                                                    {{ $record->source->customer->name ?? '-' }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
+
 
                                             {{-- <td style="text-align: center">
                                           <button type="button" class="btn btn-sm btn-info rounded"
@@ -157,9 +142,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        ini footer
-                    </div>
+
                 </div>
             </div>
         </form>

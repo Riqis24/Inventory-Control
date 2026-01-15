@@ -12,6 +12,8 @@ class StockTransactions extends Model
 
     protected $fillable = [
         'product_id',
+        'loc_id',
+        'batch_id',
         'type',
         'quantity',
         'note',
@@ -25,4 +27,18 @@ class StockTransactions extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function batch()
+    {
+        return $this->belongsTo(BatchMstr::class, 'batch_id');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(LocMstr::class, 'loc_id');
+    }
+
+    public function source()
+    {
+        return $this->morphTo();
+    }
 }

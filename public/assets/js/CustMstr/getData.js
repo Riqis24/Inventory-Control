@@ -19,7 +19,7 @@ document.getElementById("addRow").addEventListener("click", function () {
     // Menambahkan HTML untuk input produk
     row.innerHTML = `
         <div class="row mt-2">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <input type="text" class="form-control form-control-sm" name="names[]"
                                             required>
                                     </div>
@@ -32,8 +32,19 @@ document.getElementById("addRow").addEventListener("click", function () {
                                             required>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" class="form-control form-control-sm" value="0"
-                                            name="outstandings[]" required>
+                                        <select name="types[]" id="type" class="form-select form-select-sm"
+                                            required>
+                                            <option value=""></option>
+                                            <option value="reguler">Reguler</option>
+                                            <option value="member">member</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <select name="isvisibles[]" id="isvisible" class="form-select form-select-sm"
+                                            required>
+                                            <option value="0">Tidak</option>
+                                            <option value="1">Iya</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-1">
                                         <button type="button"

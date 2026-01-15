@@ -1,3 +1,8 @@
+<head>
+    <meta charset="UTF-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Agdasima&family=Poppins&display=swap');
 
@@ -79,7 +84,7 @@
     <div class="card">
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <h2>Login Form</h2>
+            <h2>Welcome!</h2>
             <label for="email">Email</label>
             <input type="text" id="email" name="user_mstr_email">
 
@@ -89,6 +94,8 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
             <button type="submit">Login</button>
+            {{-- <span style="font-size: 12px; margin-top: 5px; color: white;">Don't have any account? <a
+                    href="{{ url('register') }}">Register Here!</a></span> --}}
         </form>
     </div>
 </div>

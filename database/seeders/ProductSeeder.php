@@ -16,41 +16,42 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Tambah Measurement
-        $pack = Measurement::firstOrCreate(['name' => 'Pack']);
-        $kg = Measurement::firstOrCreate(['name' => 'Kg']);
 
         // 2. Tambah Produk
-        $product = Product::create([
-            'code' => 'SP001',
-            'name' => 'Semen Putih',
-            'description' => 'Semen putih kualitas premium',
-            'measurement_id' => $pack->id, // Default-nya adalah Pack
+        $product1 = Product::create([
+            'code' => 'OBAT-001',
+            'name' => 'Panadol',
+            'description' => 'Panadol',
+            'category' => 1, // Default-nya adalah Tablet
+            'measurement_id' => 1, // Default-nya adalah Tablet
+            'margin' => 10, // Default-nya adalah Tablet
+            'type' => 'single',
             'is_stockable' => true,
+            'is_visible' => true,
         ]);
 
-        // 3. Tambah ProductMeasurements
-        $pmPack = ProductMeasurements::create([
-            'product_id' => $product->id,
-            'measurement_id' => $pack->id,
-            'conversion' => 1, // default, 1 pack = 1 pack
+        $product2 = Product::create([
+            'code' => 'OBAT-002',
+            'name' => 'Paramex',
+            'description' => 'Paramex',
+            'category' => 1,
+            'measurement_id' => 1, // Default-nya adalah Tablet
+            'margin' => 10, // Default-nya adalah Tablet
+            'type' => 'single',
+            'is_stockable' => true,
+            'is_visible' => true,
         ]);
 
-        $pmKg = ProductMeasurements::create([
-            'product_id' => $product->id,
-            'measurement_id' => $kg->id,
-            'conversion' => 5, // 1 pack = 5 kg
-        ]);
-
-        // 4. Tambah Price
-        Price::create([
-            'product_measurement_id' => $pmPack->id,
-            'price' => 60000,
-        ]);
-
-        Price::create([
-            'product_measurement_id' => $pmKg->id,
-            'price' => 12500,
+        $product3 = Product::create([
+            'code' => 'OBAT-003',
+            'name' => 'Flumin',
+            'description' => 'Flumin',
+            'category' => 1,
+            'measurement_id' => 1, // Default-nya adalah Tablet
+            'margin' => 10, // Default-nya adalah Tablet
+            'type' => 'single',
+            'is_stockable' => true,
+            'is_visible' => true,
         ]);
     }
 

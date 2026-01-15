@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class CustomerController extends Controller
 {
@@ -29,7 +32,26 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Customer::create([
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'type' => $request->type,
+                'isvisible' => $request->isvisible,
+                'total_outstanding' => $request->outstanding ?? 0,
+            ]);
+            return redirect()->back()->with('success', 'Customer berhasil ditambahkan!');
+        } catch (ValidationException $e) {
+            // Laravel akan otomatis redirect back, tapi kalau kamu mau manual:
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (Exception $e) {
+            Log::error('Gagal menambahkan Customer', ['error' => $e->getMessage()]);
+
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan customer.');
+        }
     }
 
     /**

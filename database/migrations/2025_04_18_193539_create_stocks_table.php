@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('loc_id')->nullable();
+            $table->unsignedBigInteger('batch_id')->nullable();
             $table->decimal('quantity', 16, 4)->default(0); // Bisa simpan desimal
             $table->timestamps();
         });

@@ -6,348 +6,273 @@
             </a>
         </header>
 
-        <div class="page-heading">
-            <h3>Profile Statistics</h3>
+        <div class="page-heading d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="fw-bold">Financial Overview</h3>
+                <p class="text-subtitle text-muted">Ringkasan performa apotek berdasarkan catatan keuangan terpusat.</p>
+            </div>
+            <div class="d-none d-md-block">
+                <div class="badge bg-light-primary p-2 px-3 rounded-pill text-primary">
+                    <i class="bi bi-calendar3 me-2"></i> {{ now()->format('F Y') }}
+                </div>
+            </div>
         </div>
+
         <div class="page-content">
             <section class="row">
                 <div class="col-12 col-lg-9">
+
                     <div class="row">
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div
-                                            class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                            <div class="stats-icon purple mb-2">
-                                                <i class="iconly-boldShow"></i>
-                                            </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="card shadow-sm border-0 rounded-4 text-white"
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <p class="small text-uppercase mb-1 opacity-75">Gross Income</p>
+                                            <h5 class="fw-extrabold text-white mb-0">Rp
+                                                {{ number_format($totalIncome, 0, ',', '.') }}</h5>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">
-                                                Profile Views
-                                            </h6>
-                                            <h6 class="font-extrabold mb-0">112.000</h6>
-                                        </div>
+                                        <div class="stats-icon-mini"><i class="bi bi-graph-up"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div
-                                            class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                            <div class="stats-icon blue mb-2">
-                                                <i class="iconly-boldProfile"></i>
-                                            </div>
+
+                        <div class="col-6 col-lg-3">
+                            <div class="card shadow-sm border-0 rounded-4 text-white"
+                                style="background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <p class="small text-uppercase mb-1 opacity-75">Expense</p>
+                                            <h5 class="fw-extrabold text-white mb-0">Rp
+                                                {{ number_format($totalExpense, 0, ',', '.') }}</h5>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Followers</h6>
-                                            <h6 class="font-extrabold mb-0">183.000</h6>
-                                        </div>
+                                        <div class="stats-icon-mini"><i class="bi bi-cart-dash"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div
-                                            class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                            <div class="stats-icon green mb-2">
-                                                <i class="iconly-boldAdd-User"></i>
-                                            </div>
+
+                        <div class="col-6 col-lg-3">
+                            <div class="card shadow-sm border-0 rounded-4 text-white"
+                                style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <p class="small text-uppercase mb-1 opacity-75">PPN Liability</p>
+                                            <h5 class="fw-extrabold mb-0 text-white">Rp
+                                                {{ number_format($totalPPN, 0, ',', '.') }}</h5>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Following</h6>
-                                            <h6 class="font-extrabold mb-0">80.000</h6>
-                                        </div>
+                                        <div class="stats-icon-mini"><i class="bi bi-shield-check"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div
-                                            class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                            <div class="stats-icon red mb-2">
-                                                <i class="iconly-boldBookmark"></i>
-                                            </div>
+
+                        <div class="col-6 col-lg-3">
+                            <div class="card shadow-sm border-0 rounded-4 text-white"
+                                style="background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <p class="small text-uppercase mb-1 opacity-75">Available Balance</p>
+                                            <h5 class="fw-extrabold text-white mb-0">Rp
+                                                {{ number_format($saldo, 0, ',', '.') }}
+                                            </h5>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Saved Post</h6>
-                                            <h6 class="font-extrabold mb-0">112</h6>
-                                        </div>
+                                        <div class="stats-icon-mini"><i class="bi bi-wallet2"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Profile Visit</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="chart-profile-visit"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-xl-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Profile Visit</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-primary" width="32" height="32"
-                                                    fill="blue" style="width: 10px">
-                                                    <use
-                                                        xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">Europe</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <h5 class="mb-0 text-end">862</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-europe"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-success" width="32" height="32"
-                                                    fill="blue" style="width: 10px">
-                                                    <use
-                                                        xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">America</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <h5 class="mb-0 text-end">375</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-america"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-success" width="32" height="32"
-                                                    fill="blue" style="width: 10px">
-                                                    <use
-                                                        xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">India</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <h5 class="mb-0 text-end">625</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-india"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-danger" width="32" height="32"
-                                                    fill="blue" style="width: 10px">
-                                                    <use
-                                                        xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">Indonesia</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <h5 class="mb-0 text-end">1025</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-indonesia"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-12 col-xl-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Latest Comments</h4>
+                            <div class="card border-0 shadow-sm rounded-4">
+                                <div class="card-header bg-transparent py-4 border-0">
+                                    <h5 class="card-title mb-0">Financial Performance (7 Days)</h5>
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-lg">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Comment</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="col-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <img src="./assets/compiled/jpg/5.jpg" />
-                                                            </div>
-                                                            <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class="mb-0">
-                                                            Congratulations on your graduation!
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <img src="./assets/compiled/jpg/2.jpg" />
-                                                            </div>
-                                                            <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class="mb-0">
-                                                            Wow amazing design! Can you make another
-                                                            tutorial for this design?
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <img src="./assets/compiled/jpg/8.jpg" />
-                                                            </div>
-                                                            <p class="font-bold ms-3 mb-0">
-                                                                Singh Eknoor
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class="mb-0">
-                                                            What a stunning design! You are so talented
-                                                            and creative!
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <img src="./assets/compiled/jpg/3.jpg" />
-                                                            </div>
-                                                            <p class="font-bold ms-3 mb-0">Rani Jhadav</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class="mb-0">
-                                                            I love your design! It’s so beautiful and
-                                                            unique! How did you learn to do this?
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <div id="chart-performance"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-4">
+                            <div class="card border-0 shadow-sm rounded-4">
+                                <div
+                                    class="card-header bg-transparent py-4 border-0 d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">Last Transactions</h5>
+                                    <a href="{{ Route('FinancialRecord.index') }}"
+                                        class="small text-decoration-none">View All</a>
+                                </div>
+                                <div class="card-body pt-0">
+                                    @foreach ($recentRecords as $record)
+                                        <div class="recent-message d-flex px-0 mb-4 align-items-center">
+                                            <div
+                                                class="avatar avatar-lg rounded-3 d-flex align-items-center justify-content-center p-2">
+                                                <i
+                                                    class="bi {{ $record->type == 'income' ? 'bi-arrow-down-left text-success' : 'bi-arrow-up-right text-danger' }}"></i>
+                                            </div>
+                                            <div class="name ms-3 flex-grow-1 overflow-hidden">
+                                                <h6 class="mb-0 fw-bold small text-truncate">{{ $record->ref_number }}
+                                                </h6>
+                                                <p class="text-muted small mb-0">
+                                                    {{ \Carbon\Carbon::parse($record->created_at)->format('d M, H:i') }}
+                                                </p>
+                                            </div>
+                                            <div class="text-end">
+                                                <h6
+                                                    class="mb-0 fw-bold small {{ $record->type == 'income' ? 'text-success' : 'text-danger' }}">
+                                                    {{ $record->type == 'income' ? '+' : '-' }}
+                                                    {{ number_format($record->amount, 0, ',', '.') }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+
                 <div class="col-12 col-lg-3">
-                    <div class="card">
-                        <div class="card-body py-4 px-4">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar avatar-xl">
-                                    <img src="./assets/compiled/jpg/1.jpg" alt="Face 1" />
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                        <div class="card-body p-0">
+                            <div class="p-4 text-center bg-info bg-gradient">
+                                <div
+                                    class="avatar avatar-xl mb-3 shadow-lg border border-3 border-white border-opacity-25 mx-auto">
+                                    <img src="{{ asset('assets/compiled/jpg/1.jpg') }}" alt="Profile" />
                                 </div>
-                                <div class="ms-3 name">
-                                    <h5 class="font-bold">John Duck</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
-                                </div>
+                                <h5 class="mb-0 fw-bold text-white">{{ auth()->user()->user_mstr_name }}</h5>
+                                <span
+                                    class="badge bg-white bg-opacity-25 rounded-pill small">{{ auth()->user()->getRoleNames()->first() }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Recent Messages</h4>
-                        </div>
-                        <div class="card-content pb-4">
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="./assets/compiled/jpg/4.jpg" />
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Hank Schrader</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="./assets/compiled/jpg/5.jpg" />
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Dean Winchester</h5>
-                                    <h6 class="text-muted mb-0">@imdean</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="./assets/compiled/jpg/1.jpg" />
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">John Dodol</h5>
-                                    <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                </div>
-                            </div>
-                            <div class="px-4">
-                                <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3">
-                                    Start Conversation
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Visitors Profile</h4>
+
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-header bg-transparent border-0 pt-4 pb-0">
+                            <h5 class="card-title mb-0">Quick Stock Info</h5>
                         </div>
                         <div class="card-body">
-                            <div id="chart-visitors-profile"></div>
+                            <div id="chart-stock-summary"></div>
+                            <div class="mt-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="small text-muted">Stok Menipis</span>
+                                    <span
+                                        class="badge bg-warning text-dark rounded-pill">{{ $stockStatus['low_stock'] }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="small text-muted">Habis</span>
+                                    <span
+                                        class="badge bg-danger rounded-pill">{{ $stockStatus['out_of_stock'] }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
-
-        <footer>
-            <div class="footer clearfix mb-0 text-muted">
-                <div class="float-start">
-                    <p>2023 &copy; Mazer</p>
-                </div>
-                <div class="float-end">
-                    <p>
-                        Crafted with
-                        <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                        by <a href="https://saugi.me">Saugi</a>
-                    </p>
-                </div>
-            </div>
-        </footer>
     </div>
+
+    @push('styles')
+        <style>
+            .stats-icon-mini {
+                width: 40px;
+                height: 40px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+            }
+
+            .fw-extrabold {
+                font-weight: 800;
+                letter-spacing: -0.5px;
+            }
+        </style>
+    @endpush
+
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script>
+            // Data From Controller
+            const incomeData = @json($incomeData);
+            const expenseData = @json($expenseData);
+            const chartLabels = @json($labels);
+
+            // Main Performance Chart
+            var perfOptions = {
+                series: [{
+                    name: 'Pemasukan',
+                    data: incomeData
+                }, {
+                    name: 'Pengeluaran',
+                    data: expenseData
+                }],
+                chart: {
+                    height: 350,
+                    type: 'area',
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                colors: ['#667eea', '#ee0979'],
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 4
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        opacityFrom: 0.4,
+                        opacityTo: 0
+                    }
+                },
+                xaxis: {
+                    categories: chartLabels
+                },
+                yaxis: {
+                    labels: {
+                        formatter: (v) => "Rp " + v.toLocaleString()
+                    }
+                }
+            };
+            new ApexCharts(document.querySelector("#chart-performance"), perfOptions).render();
+
+            // Stock Donut
+            var stockOptions = {
+                series: [@json($stockStatus['in_stock']), @json($stockStatus['low_stock']), @json($stockStatus['out_of_stock'])],
+                chart: {
+                    type: 'donut',
+                    height: 250
+                },
+                labels: ['Safe', 'Low', 'Empty'],
+                colors: ['#00b09b', '#fccb90', '#f5576c'],
+                legend: {
+                    show: false
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '75%'
+                        }
+                    }
+                }
+            };
+            new ApexCharts(document.querySelector("#chart-stock-summary"), stockOptions).render();
+        </script>
+    @endpush
 </x-app-layout>

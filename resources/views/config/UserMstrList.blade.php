@@ -27,20 +27,15 @@
                                     <th style="text-align:center;width:5%">No</th>
                                     <th style="text-align:center;">Name</th>
                                     <th style="text-align:center;width:20%">Email</th>
+                                    <th style="text-align:center;width:20%">Password</th>
                                     <th style="text-align:center;width:20%">Role</th>
-                                    {{-- @can('user.edit') --}}
                                     <th style="text-align:center;width:5%">Action</th>
-                                    {{-- @endcan --}}
-                                    {{-- <th>Role</th> --}}
-                                    {{-- <th>Status</th> --}}
-                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
                                     <tr data-id="{{ $user->user_mstr_id }}">
                                         <td>{{ $loop->iteration }}</td>
-
                                         <!-- Name -->
                                         <td>
                                             <span class="name-display">{{ $user->user_mstr_name }}</span>
@@ -57,6 +52,14 @@
                                                 value="{{ $user->user_mstr_email }}">
                                         </td>
 
+                                        <!-- Password -->
+                                        <td>
+                                            <span class="password-display">{{ $user->user_mstr_password }}</span>
+                                            <input type="text" name="f_Password"
+                                                class="form-control form-control-sm password-input  d-none"
+                                                value="{{ $user->user_mstr_password }}">
+                                        </td>
+
                                         <!-- Role -->
                                         <td>
                                             <span class="role-display">{{ $user->user_mstr_role }}</span>
@@ -71,14 +74,12 @@
                                             </select>
                                         </td>
                                         <!-- Actions -->
-                                        {{-- @can('user.edit') --}}
                                         <td>
-                                            <button class="btn btn-sm btn-warning edit-btn">✏ Edit</button>
+                                            <button class="btn btn-sm btn-warning edit-btn">Edit</button>
                                             <button
                                                 data-url="{{ route('UserMstr.updateInline', $user->user_mstr_id) }}"
                                                 class="btn btn-sm btn-success update-btn d-none">✔ Save</button>
                                         </td>
-                                        {{-- @endcan --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -99,7 +100,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalAddUserLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="modalAddUserLabel">Add User Master</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -121,7 +122,7 @@
                             </div>
                             <div class="col-md-12 mt-2">
                                 <label for="fid_Password">Role</label>
-                                <select class="form-selcect form-select-sm" style="width: 100%" name="f_Role"
+                                <select class="form-select form-select-sm" style="width: 100%" name="f_Role"
                                     id="fid_Role">
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}">{{ $role->name }}</option>

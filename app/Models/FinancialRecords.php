@@ -24,7 +24,4 @@ class FinancialRecords extends Model
     {
         return $this->morphTo();
     }
-
-    
-
 }

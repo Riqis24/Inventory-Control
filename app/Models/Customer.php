@@ -14,8 +14,8 @@ class Customer extends Model
         'name',
         'phone',
         'address',
-        'total_outsatnding'
+        'total_outsatnding',
+        'isvisible',
+        'type'
     ];
-
-
 }

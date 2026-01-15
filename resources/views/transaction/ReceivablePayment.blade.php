@@ -24,11 +24,9 @@
                                 <tr>
                                     <th style="width:5%; text-align: center">No</th>
                                     <th style="width:12%; text-align: center">Tanggal</th>
+                                    <th style="text-align: center">Invoice#</th>
                                     <th style="text-align: center">Name</th>
                                     <th style="width:15%; text-align: center">Bayar</th>
-                                    {{-- <th>Cust</th> --}}
-                                    {{-- <th>Status</th> --}}
-                                    {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,6 +34,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $transaction->date }}</td>
+                                        <td>{{ $transaction->custtr->invoice_number }}</td>
                                         <td>{{ $transaction->customer->name }}</td>
                                         <td>{{ rupiah($transaction->amount_paid) }}</td>
                                     </tr>

@@ -127,9 +127,7 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-
-
-
+        // dd($request->all());
         $request->merge([
             'total' => $this->cleanCurrency($request->total),
             'bayar' => $this->cleanCurrency($request->bayar),
@@ -164,11 +162,29 @@ class TransactionController extends Controller
 
         $effDate = Carbon::parse($request->effdate);
         $invoiceNumber = CustTransactions::generateInvoiceNumber($effDate);
-        // $invoiceNumber = null;
+        $hutang = $request->total - $request->bayar;
+        if ($hutang > 0) {
+            $debt = $hutang;
+        } else if ($hutang < 0) {
+            $debt = 0;
+        } else {
+            $debt = 0;
+        }
 
-        // do {
-        //     $invoiceNumber = CustTransactions::generateInvoiceNumber($effDate);
-        // } while (CustTransactions::where('invoice_number', $invoiceNumber)->exists());
+        if ($request->method_payment == 'cash') {
+            $mp = 1;
+        } else if ($request->method_payment == 'credit') {
+            $mp = 0;
+        } else {
+            $mp = NULL;
+        }
+
+        if ($request->method_payment == 'cash') {
+            if ($debt > 0) {
+                // dd($debt);
+                return back()->with('error', 'Wrong Method Payment');
+            }
+        }
 
         try {
             // 2. Simpan transaksi utama
@@ -176,11 +192,15 @@ class TransactionController extends Controller
                 'invoice_number' => $invoiceNumber,
                 'customer_id' => $request->customer,
                 'date' => $request->effdate,
-                'status' => $request->method_payment,
+                'method_payment' => $request->method_payment,
                 'total' => ($request->total),
                 'paid' => ($request->bayar),
                 'change' => ($request->kembalian),
+                'debt' => $debt,
+                'status' => $mp,
             ]);
+
+            // dd($custTransaction);
 
             // 3. Simpan detail item
             foreach ($request->item as $index => $productId) {

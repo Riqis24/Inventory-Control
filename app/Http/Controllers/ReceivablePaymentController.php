@@ -19,7 +19,7 @@ class ReceivablePaymentController extends Controller
     public function index()
     {
         $customers = Customer::query()->where('total_outstanding', '>', 0)->get();
-        $transactions = ReceivablePayments::query()->with('customer')->orderBy('id', 'desc')->get();
+        $transactions = ReceivablePayments::query()->with(['customer', 'custtr'])->orderBy('id', 'desc')->get();
         return view('transaction.ReceivablePayment', compact('customers', 'transactions'));
     }
 
@@ -46,11 +46,12 @@ class ReceivablePaymentController extends Controller
 
             // dd($request->all());
             $cust = Customer::findOrFail($request->customer);
+            // $custTr = CustTransactions::where('customer_id', $request->customer)->first();
 
             $rcvPayment = ReceivablePayments::create([
                 'customer_id' => $request->customer,
                 'date' => $request->date,
-                'transaction_id' => 6,
+                'transaction_id' => $request->transaction_id ?? NULL,
                 'amount_paid' => $request->amount,
             ]);
 
@@ -70,7 +71,6 @@ class ReceivablePaymentController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Transaksi berhasil ditambahkan!');
-
         } catch (ValidationException $e) {
             // Laravel akan otomatis redirect back, tapi kalau kamu mau manual:
             return redirect()->back()
@@ -88,7 +88,9 @@ class ReceivablePaymentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = ReceivablePayments::where('id', $id)->first();
+        dd($data);
+        return view('transaction.DebtPayment');
     }
 
     /**

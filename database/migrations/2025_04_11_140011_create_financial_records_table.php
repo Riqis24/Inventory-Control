@@ -13,10 +13,13 @@ return new class extends Migration {
         Schema::create('financial_records', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->enum('type', ['income', 'expense']);
+            $table->enum('type', ['income', 'expense', 'liability']);
+            $table->string('method')->nullable();
             $table->string('data_source');
             $table->text('description')->nullable();
-            $table->decimal('amount', 15, 2);
+            $table->decimal('amount', 18, 2);
+            // $table->decimal('ppn', 18, 2);
+            // $table->decimal('grandtotal', 18, 2);
             $table->timestamps();
         });
     }

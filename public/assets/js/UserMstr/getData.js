@@ -10,12 +10,12 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".edit-btn").on("click", function () {
         const row = $(this).closest("tr");
-        row.find(".name-display, .email-display, .role-display").addClass(
-            "d-none"
-        );
-        row.find(".name-input, .email-input, .role-input").removeClass(
-            "d-none"
-        );
+        row.find(
+            ".name-display, .email-display, .role-display, .password-display"
+        ).addClass("d-none");
+        row.find(
+            ".name-input, .email-input, .role-input, .password-input"
+        ).removeClass("d-none");
         row.find(".edit-btn").addClass("d-none");
         row.find(".update-btn").removeClass("d-none");
     });
@@ -25,12 +25,15 @@ $(document).ready(function () {
         // ambil nilai dari input dan update span
         row.find(".name-display").text(row.find(".name-input").val());
         row.find(".email-display").text(row.find(".email-input").val());
+        row.find(".password-display").text(row.find(".password-input").val());
         row.find(".role-display").text(row.find(".role-input").val());
 
-        row.find(".name-input, .email-input, .role-input").addClass("d-none");
-        row.find(".name-display, .email-display, .role-display").removeClass(
-            "d-none"
-        );
+        row.find(
+            ".name-input, .email-input, .password-input, .role-input"
+        ).addClass("d-none");
+        row.find(
+            ".name-display, .email-display, .password-display, .role-display"
+        ).removeClass("d-none");
         row.find(".update-btn").addClass("d-none");
         row.find(".edit-btn").removeClass("d-none");
 
@@ -42,6 +45,7 @@ $(document).ready(function () {
         let url = $(this).data("url");
         let id = row.data("id");
         let name = row.find(".name-input").val();
+        let password = row.find(".password-input").val();
         let email = row.find(".email-input").val();
         let role = row.find(".role-input").val();
 
@@ -51,6 +55,7 @@ $(document).ready(function () {
             data: {
                 name: name,
                 email: email,
+                password: password,
                 role: role,
                 _token: $('meta[name="csrf-token"]').attr("content"),
             },
@@ -59,12 +64,13 @@ $(document).ready(function () {
                 row.find(".name-display").text(name);
                 row.find(".email-display").text(email);
                 row.find(".role-display").text(role);
+                row.find(".password-display").text(password);
 
-                row.find(".name-input, .email-input, .role-input").addClass(
-                    "d-none"
-                );
                 row.find(
-                    ".name-display, .email-display, .role-display"
+                    ".name-input, .email-input, .role-input, .password-input"
+                ).addClass("d-none");
+                row.find(
+                    ".name-display, .email-display, .role-display, .password-display"
                 ).removeClass("d-none");
                 row.find(".update-btn").addClass("d-none");
                 row.find(".edit-btn").removeClass("d-none");

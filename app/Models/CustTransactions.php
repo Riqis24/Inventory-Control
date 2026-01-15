@@ -15,10 +15,12 @@ class CustTransactions extends Model
         'invoice_number',
         'customer_id',
         'date',
+        'method_payment',
         'status',
         'total',
         'paid',
         'change',
+        'debt',
     ];
 
 

@@ -10,6 +10,39 @@ if (!function_exists('rupiah')) {
   }
 }
 
+if (! function_exists('numfmt')) {
+  /**
+   * Format number:
+   * - tanpa desimal jika bilangan bulat
+   * - dengan desimal jika ada nilai pecahan
+   *
+   * Contoh:
+   *  numfmt(10)        -> 10
+   *  numfmt(10.5)      -> 10,5
+   *  numfmt(10.25)     -> 10,25
+   *  numfmt(1000)      -> 1.000
+   *  numfmt(1000.75)   -> 1.000,75
+   */
+  function numfmt($value, $maxDecimal = 2)
+  {
+    if ($value === null || $value === '') {
+      return '0';
+    }
+
+    $value = (float) $value;
+
+    // Cek apakah bilangan bulat
+    if (floor($value) == $value) {
+      return number_format($value, 0, ',', '.');
+    }
+
+    // Ada desimal → trim trailing zero
+    $formatted = number_format($value, $maxDecimal, ',', '.');
+
+    return rtrim(rtrim($formatted, '0'), ',');
+  }
+}
+
 if (!function_exists('update_stock')) {
   /**
    * Update stok berdasarkan transaksi masuk/keluar
@@ -37,6 +70,5 @@ if (!function_exists('update_stock')) {
       ['product_id' => $productId],
       ['quantity' => $final]
     );
-
   }
 }

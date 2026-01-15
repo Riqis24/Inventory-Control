@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +22,15 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
+        $this->call([
+            MeasurementSeeder::class,
+            ProductSeeder::class,
+            SuppMstrSeeder::class,
+            LocMstrSeeder::class,
+            ProductPlacementSeeder::class,
+            ProductMeasurementsSeeder::class,
+            ProductCatSeeder::class,
+        ]);
         User::create([
             'user_mstr_name' => 'Riqi Saputra',
             'user_mstr_email' => 'riqi@mail.com',

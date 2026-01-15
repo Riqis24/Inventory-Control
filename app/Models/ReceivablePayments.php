@@ -23,4 +23,8 @@ class ReceivablePayments extends Model
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
+    public function custtr()
+    {
+        return $this->belongsTo(CustTransactions::class, 'transaction_id', 'id');
+    }
 }

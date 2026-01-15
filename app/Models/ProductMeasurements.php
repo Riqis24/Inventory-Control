@@ -14,8 +14,9 @@ class ProductMeasurements extends Model
         'product_id',
         'measurement_id',
         'conversion',
+        'placement_id',
+        'last_buy_price',
     ];
-
 
     public function product()
     {
@@ -25,5 +26,15 @@ class ProductMeasurements extends Model
     public function measurement()
     {
         return $this->belongsTo(Measurement::class);
+    }
+
+    public function price()
+    {
+        return $this->hasOne(Price::class, 'product_measurement_id');
+    }
+
+    public function placement()
+    {
+        return $this->belongsTo(ProductPlacement::class, 'placement_id');
     }
 }

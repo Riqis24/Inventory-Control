@@ -27,8 +27,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect()->intended(route('dashboard', absolute: false));
+        if (auth()->user()->hasRole(['Super Admin', 'Owner', 'Admin'])) {
+            return redirect()->intended(route('dashboard.index', absolute: false));
+        } else {
+            return redirect()->intended(route('SalesMstr.cashier', absolute: false));
+        }
     }
 
     /**
@@ -42,6 +45,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }
